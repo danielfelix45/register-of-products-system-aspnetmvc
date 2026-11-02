@@ -27,7 +27,7 @@ namespace RegisterOfProducts.Models
 
         public bool ValidPassword(string password)
         {
-            return Password == password.GenerateHash();
+            return Cryptography.VerifyPassword(password, Password);
         }
 
         public void SetPasswordHash()
