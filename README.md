@@ -1,59 +1,110 @@
-# 🧾 Product Management System (ASP.NET MVC)
+# 🧾 Register of Products System
 
-Sistema web para cadastro e gerenciamento de produtos e usuários, desenvolvido utilizando o padrão MVC com ASP.NET.
+Sistema web para **gerenciamento de produtos e usuários**, desenvolvido em C# com ASP.NET Core MVC.
 
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/81331726/232176301-e6d64efd-5502-41eb-8be4-e0557ce4c7c1.png" width="700px" />
-</div>
+O projeto implementa operações de cadastro e gerenciamento de registros, autenticação de usuários, controle de sessão e perfis de acesso, persistência de dados com Entity Framework Core e SQL Server.
 
----
+## ⚙️ Funcionalidades
 
-## 🚀 Tecnologias utilizadas
+- Cadastro, listagem, edição e exclusão de produtos
+- Cadastro e gerenciamento de usuários
+- Autenticação de usuários
+- Controle de sessão
+- Controle de acesso por perfil
+- Alteração de senha
+- Redefinição de senha com envio por e-mail
+- Persistência de dados utilizando Entity Framework Core
+- Migrations para controle da estrutura do banco de dados
 
-- ASP.NET MVC
+## 🛠️ Tecnologias
+
 - C#
-- Entity Framework
+- ASP.NET Core MVC
+- .NET 9
+- Entity Framework Core
 - SQL Server
 - HTML
 - CSS
 - Bootstrap
 - jQuery
+- Newtonsoft.Json
 
----
+## 🚀 Como executar localmente
 
-## 🎯 Objetivo do projeto
+### Pré-requisitos
 
-Desenvolver uma aplicação web completa para gerenciamento de produtos e usuários, aplicando o padrão MVC e boas práticas de organização de código no backend.
+- .NET SDK 9
+- SQL Server
+- Git
 
----
+### 1. Clone o repositório
 
-## ⚙️ Funcionalidades
+```bash
+git clone git@github.com:danielfelix45/register-of-products-system-aspnetmvc.git
+cd register-of-products-system-aspnetmvc
+```
 
-- 📋 Listagem de produtos e usuários
-- ➕ Cadastro de novos registros
-- ✏️ Edição de dados
-- ❌ Exclusão de registros
-- 🔐 Definição e alteração de senha
-- 🔎 Visualização detalhada de registros
+### 2. Configure o banco de dados
 
----
+A aplicação utiliza a connection string `DataBase`.
 
-## 🧠 Aprendizados
+Para desenvolvimento local, configure a conexão de acordo com sua instalação do SQL Server. Exemplo:
 
-- Estruturação de aplicações com o padrão **MVC (Model-View-Controller)**
-- Implementação de operações **CRUD** com integração ao banco de dados
-- Uso do **Entity Framework** para manipulação de dados
-- Organização de código em camadas (Controllers, Models e Views)
-- Fundamentos do desenvolvimento backend com **.NET**
+```json
+"ConnectionStrings": {
+  "DataBase": "Server=localhost\\SQLEXPRESS;Database=DB_ProductSystem;Trusted_Connection=True;TrustServerCertificate=True"
+}
+```
 
----
+### 3. Aplique as migrations
 
-## 📌 Sobre o projeto
+Na pasta do projeto:
 
-Este projeto foi desenvolvido com foco em consolidar conhecimentos em desenvolvimento backend utilizando o ecossistema .NET, simulando um cenário real de aplicação web com persistência de dados.
+```bash
+dotnet ef database update
+```
 
----
+### 4. Execute a aplicação
+
+```bash
+dotnet run --project RegisterOfProducts
+```
+
+A URL utilizada pela aplicação será exibida no terminal.
+
+## 📧 Configuração do SMTP
+
+O projeto utiliza SMTP para o envio de e-mails relacionados à redefinição de senha.
+
+Credenciais reais não devem ser adicionadas ao repositório. Em desenvolvimento, elas podem ser configuradas com **User Secrets** ou variáveis de ambiente.
+
+Exemplo utilizando User Secrets:
+
+```bash
+dotnet user-secrets init --project RegisterOfProducts
+
+dotnet user-secrets set "SMTP:UserName" "seu-email" --project RegisterOfProducts
+dotnet user-secrets set "SMTP:password" "sua-senha" --project RegisterOfProducts
+dotnet user-secrets set "SMTP:Host" "seu-servidor-smtp" --project RegisterOfProducts
+```
+
+As demais configurações, como nome e porta do servidor SMTP, devem corresponder ao provedor utilizado.
+
+## 🔐 Segurança das senhas
+
+As senhas não são armazenadas em texto puro.
+
+O projeto utiliza **PBKDF2 com SHA-256**, salt aleatório e múltiplas iterações para derivação do hash. A validação utiliza comparação em tempo constante por meio de `CryptographicOperations.FixedTimeEquals`.
+
+## 🔮 Melhorias futuras
+
+- Tratar os avisos relacionados a nullable references
+- Adicionar testes automatizados
+- Aprimorar o gerenciamento das configurações por ambiente
+- Evoluir o fluxo de recuperação de senha
 
 ## 👨‍💻 Autor
 
-Desenvolvido por Daniel Félix
+**Daniel Félix**
+
+Desenvolvedor Backend | Node.js | TypeScript | C# | APIs REST
